@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import classes from './App.css';
+import classes from './App.module.css';
 import Person from './Person/Person';
 import ErrorBoundary from "./ErrorBoundary/ErrorBoundary";
 
@@ -43,9 +43,10 @@ class App extends Component {
     if (this.state.showPersons) {
       persons = (<div>
         {this.state.persons.map((person, index) => {
-          return <ErrorBoundary><Person click={() => this.deletePersonHandler(index)} name={person.name}
-                                        age={person.age}
-                                        key={person.id} changed={(event) => {
+          return <ErrorBoundary key={"EB_" + person.id}><Person click={() => this.deletePersonHandler(index)}
+                                                                name={person.name}
+                                                                age={person.age}
+                                                                key={person.id} changed={(event) => {
             this.nameChangedHandler(event, person.id)
           }}/></ErrorBoundary>
         })}
@@ -69,9 +70,6 @@ class App extends Component {
       {persons}
     </div>;
   }
-
-  // return React.createElement('div', {className: 'App'}, React.createElement('h1', null, 'Does this work now?'))
 }
 
-// Radium is called a higher order component (component wrapping your component)
 export default App;

@@ -4,6 +4,21 @@ import Persons from "../components/Persons/Persons";
 import Cockpit from "../components/Cockpit/Cockpit";
 
 class App extends Component {
+
+  constructor(props) {
+    super(props);
+    console.log("[App.js] constructor");
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    console.log("[App.js] getDerivedStateFromProps", props);
+    return state;
+  }
+
+  componentDidMount() {
+    console.log("[App.js] componentDidMount")
+  }
+
   state = {
     persons: [
       {id: 'idaj', name: "Max", age: 28},

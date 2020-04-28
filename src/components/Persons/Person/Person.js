@@ -1,23 +1,43 @@
 import React, {Component} from 'react';
 import classes from './Person.module.css';
+import WithClass from "../../../hoc/WithClass";
+import Auxiliary from "../../../hoc/Auxiliary";
+import PropTypes from "prop-types";
 
 class Person extends Component {
-  
+
+  constructor(props) {
+    super(props);
+    this.inputElementRef = React.createRef();
+  }
+
+  componentDidMount() {
+    this.inputElementRef.current.focus();
+  }
+
   render() {
     console.log("[Person.js] rendering...");
 
     const rnd = Math.random();
 
-    if (rnd > 0.9) {
+    if (rnd > 0.99) {
       throw new Error("Something went wrong!");
     }
 
-    return (<div className={classes.Person}>
+    return (<Auxiliary>
       <p onClick={this.props.click}>I'm {this.props.name} and I am {this.props.age} years old!</p>
       <p>{this.props.children}</p>
-      <input type="text" onChange={this.props.changed} value={this.props.name}/>
-    </div>);
+      <input ref={this.inputElementRef} type="text" onChange={this.props.changed}
+             value={this.props.name}/>
+    </Auxiliary>);
   }
 }
 
-export default Person;
+Person.propTypes = {
+  name: PropTypes.string,
+  age: PropTypes.number,
+  click: PropTypes.func,
+  changed: PropTypes.func
+};
+
+export default WithClass(Person, classes.Person);
